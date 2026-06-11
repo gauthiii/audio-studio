@@ -53,11 +53,14 @@ def analyze_audio(path: str) -> dict:
 
     tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
     bpm = float(np.atleast_1d(tempo)[0])
-    # Fold implausible halved/doubled estimates into a musical range
-    while bpm < 60:
-        bpm *= 2
-    while bpm > 200:
-        bpm /= 2
+    if not np.isfinite(bpm) or bpm <= 0:
+        bpm = 120.0
+    else:
+        # Fold implausible halved/doubled estimates into a musical range.
+        while bpm < 60:
+            bpm *= 2
+        while bpm > 200:
+            bpm /= 2
 
     tonic, mode, confidence = _detect_key(y, sr)
 
