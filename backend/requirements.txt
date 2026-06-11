@@ -1,0 +1,16 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+numpy>=1.26
+librosa>=0.10.1
+soundfile>=0.12.1
+pydub>=0.25.1
+
+# High-quality pitch/tempo shifting (requires the `rubberband-cli` system package).
+# If unavailable, the backend automatically falls back to librosa's phase-vocoder.
+pyrubberband>=0.4.0
+
+# AI stem separation (heavy — ~1.7GB of model weights on first run).
+# Optional: set STEM_MODE=mock to run the app without it.
+demucs>=4.0.1
+torch>=2.1
